@@ -1,5 +1,7 @@
 const checkLength = (string = '', maxLength = 1) => string.length <= maxLength;
 
+checkLength();
+
 function checkPolyndrom(string) {
   string = string.replaceAll(' ', '').toLowerCase();
   let mirroredString = '';
@@ -10,6 +12,8 @@ function checkPolyndrom(string) {
 
   return string === mirroredString;
 }
+
+checkPolyndrom();
 
 function extractNumber (string) {
   let resultNumber = '';
@@ -24,3 +28,5 @@ function extractNumber (string) {
 
   return parseInt(resultNumber, 10);
 }
+
+extractNumber();
