@@ -1,32 +1,22 @@
-function checkStringLength(string, maxLength) {
-  return string.length <= maxLength;
-}
-
-checkStringLength('проверяемая строка', 20);
-checkStringLength('проверяемая строка', 18);
-checkStringLength('проверяемая строка', 10);
+const checkLength = (string = '', maxLength = 1) => string.length <= maxLength;
 
 function checkPolyndrom(string) {
-  const processedString = string.replaceAll(' ', '').toLowerCase();
+  string = string.replaceAll(' ', '').toLowerCase();
   let mirroredString = '';
 
-  for(let i = processedString.length - 1; i >= 0; i--) {
-    mirroredString += processedString[i];
+  for(let i = string.length - 1; i >= 0; i--) {
+    mirroredString += string[i];
   }
 
-  return processedString === mirroredString;
+  return string === mirroredString;
 }
 
-checkPolyndrom('топот');
-checkPolyndrom('ДовОд');
-checkPolyndrom('Кекс');
-checkPolyndrom('Лёша на полке клопа нашёл ');
-
-function extractNumber (incomeData) {
-  const processedData = String(incomeData);
+function extractNumber (string) {
   let resultNumber = '';
 
-  for (let i = 0; i <= processedData.length; i++) {
+  const processedData = String(string);
+
+  for (let i = 0; i <= processedData.length - 1; i++) {
     if(!isNaN(parseInt(processedData.at(i), 10))) {
       resultNumber += processedData.at(i);
     }
@@ -34,13 +24,3 @@ function extractNumber (incomeData) {
 
   return parseInt(resultNumber, 10);
 }
-
-extractNumber('2023 год');
-extractNumber('ECMAScript 2022');
-extractNumber('1 кефир, 0.5 батона');
-extractNumber('агент 007');
-extractNumber('а я томат');
-
-extractNumber(2023);
-extractNumber(-1);
-extractNumber(1.5);
