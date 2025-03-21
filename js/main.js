@@ -83,5 +83,4 @@ const createGallery = (numberOfPhotos) => {
   return gallery;
 };
 
-const generatedPictures = createGallery(NUMBER_OF_PICTURES);
-console.log(generatedPictures);
+createGallery(NUMBER_OF_PICTURES);
