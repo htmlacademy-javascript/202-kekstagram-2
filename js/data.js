@@ -1,4 +1,4 @@
-import {createRandomNumberFromRange, createRandomIdFromRangeGenerator} from './utils.js';
+import {createRandomNumberFromRange, createRandomIdFromRangeGenerator} from './util.js';
 
 const NUMBER_OF_PICTURES = 25;
 const NUMBER_OF_AVATARS = 6;
