@@ -41,4 +41,6 @@ const createGallery = (numberOfPhotos) => {
   return gallery;
 };
 
-console.log(createGallery(NUMBER_OF_PICTURES));
+createGallery(NUMBER_OF_PICTURES);
+
+// console.log(createGallery(NUMBER_OF_PICTURES));
