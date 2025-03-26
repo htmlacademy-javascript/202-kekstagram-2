@@ -1,66 +1,30 @@
-import {createRandomNumberFromRange, createRandomIdFromRangeGenerator} from './util.js';
+const getDataArraysForGallery = () => {
+  const DESCRIPTION = [
+    'это описание фотографии',
+    'моя лучшая фотография',
+    'пример, мир!',
+    'а я томат'
+  ];
 
-const NUMBER_OF_PICTURES = 25;
-const NUMBER_OF_AVATARS = 6;
+  const COMMENTS = [
+    'Всё отлично!',
+    'В целом всё неплохо. Но не всё.',
+    'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+    'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+    'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+    'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+  ];
 
-const DESCRIPTION = [
-  'это описание фотографии',
-  'моя лучшая фотография',
-  'пример, мир!',
-  'а я томат'
-];
+  const AUTHORS = [
+    'Joey',
+    'Ross',
+    'Chandler',
+    'Phoebe',
+    'Monika',
+    'Rachel'
+  ];
 
-const COMMENTS = [
-  'Всё отлично!',
-  'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
-];
-
-const AUTHORS = [
-  'Joey',
-  'Ross',
-  'Chandler',
-  'Phoebe',
-  'Monika',
-  'Rachel'
-];
-
-function createComments () {
-  const comments = [];
-  const numberOfComments = createRandomNumberFromRange(0,30);
-  const generateCommentId = createRandomIdFromRangeGenerator(1, numberOfComments);
-
-  for (let i = 0; i < numberOfComments; i++) {
-    comments.push({
-      id: generateCommentId(),
-      avatar: `img/avatar-${createRandomNumberFromRange(1, NUMBER_OF_AVATARS)}.svg`,
-      message: COMMENTS[createRandomNumberFromRange(0,COMMENTS.length - 1)],
-      name: AUTHORS[createRandomNumberFromRange(0,AUTHORS.length - 1)]
-    });
-  }
-  return comments;
-}
-
-const generatePhotoId = createRandomIdFromRangeGenerator(1, NUMBER_OF_PICTURES);
-const generateUrl = createRandomIdFromRangeGenerator(1, NUMBER_OF_PICTURES);
-
-const addNewPhoto = () => ({
-  id: generatePhotoId(),
-  url: `photos/${generateUrl()}.jpg`,
-  description: DESCRIPTION[createRandomNumberFromRange(0,DESCRIPTION.length - 1)],
-  likes: createRandomNumberFromRange(15, 200),
-  comments: createComments()
-});
-
-const createGallery = (numberOfPhotos) => {
-  const gallery = [];
-  for (let i = 0; i < numberOfPhotos; i++) {
-    gallery.push(addNewPhoto());
-  }
-  return gallery;
+  return {DESCRIPTION, COMMENTS, AUTHORS};
 };
 
-createGallery(NUMBER_OF_PICTURES);
+export {getDataArraysForGallery};
