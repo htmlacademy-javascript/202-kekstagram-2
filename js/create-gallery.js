@@ -33,14 +33,8 @@ const addNewPhoto = () => ({
   comments: createComments()
 });
 
-const createGallery = (numberOfPhotos) => {
-  const gallery = [];
-  for (let i = 0; i < numberOfPhotos; i++) {
-    gallery.push(addNewPhoto());
-  }
-  return gallery;
-};
+const createGallery = () => Array.from({length: NUMBER_OF_PICTURES}, addNewPhoto);
 
-createGallery(NUMBER_OF_PICTURES);
+createGallery();
 
-// console.log(createGallery(NUMBER_OF_PICTURES));
+// console.log(createGallery());
