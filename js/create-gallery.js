@@ -35,6 +35,6 @@ const addNewPhoto = () => ({
 
 const createGallery = () => Array.from({length: NUMBER_OF_PICTURES}, addNewPhoto);
 
-createGallery();
-
 // console.log(createGallery());
+
+export {createGallery};
