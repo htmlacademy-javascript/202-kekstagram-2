@@ -1,8 +1,8 @@
-import { createGallery } from './create-thumbnails';
+import { createThumbnails } from './create-thumbnails';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
-const usersPicturesData = createGallery();
+const usersPicturesData = createThumbnails();
 const usersPicturesFragment = document.createDocumentFragment();
 
 usersPicturesData.forEach(({url, description, likes, comments}) => {

@@ -33,8 +33,8 @@ const addNewPhoto = () => ({
   comments: createComments()
 });
 
-const createGallery = () => Array.from({length: NUMBER_OF_PICTURES}, addNewPhoto);
+const createThumbnails = () => Array.from({length: NUMBER_OF_PICTURES}, addNewPhoto);
 
 // console.log(createGallery());
 
-export {createGallery};
+export {createThumbnails};
