@@ -1,4 +1,4 @@
-import { createGallery } from './create-gallery';
+import { createGallery } from './create-thumbnails';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
