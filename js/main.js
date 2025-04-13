@@ -1,1 +1,1 @@
-import './add-gallery.js';
+import './add-thumbnails.js';
