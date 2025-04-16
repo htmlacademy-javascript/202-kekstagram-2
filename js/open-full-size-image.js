@@ -1,4 +1,5 @@
 import { addComments, clearComments } from './add-comments.js';
+import { usersPicturesData } from './add-thumbnails.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImage = bigPicture.querySelector('.big-picture__img img');
@@ -12,7 +13,8 @@ const checkButtonForClosingBigPicture = (evt) => {
   }
 };
 
-bigPictureCloseButton.addEventListener('click', () => {
+bigPictureCloseButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
   closeBigPicture();
 });
 
@@ -30,7 +32,8 @@ function closeBigPicture() {
   document.removeEventListener('keydown', checkButtonForClosingBigPicture);
 }
 
-const openFullSizeImage = function (image) {
+const openFullSizeImage = function (imageId) {
+  const image = usersPicturesData.find((photo) => photo.id === Number(imageId));
   const {url, description, likes, comments} = image;
 
   bigPictureImage.src = url;
