@@ -5,6 +5,10 @@ const uploadFormDescription = uploadForm.querySelector('.text__description');
 const uploadFormOverlay = uploadForm.querySelector('.img-upload__overlay');
 const uploadFormCloseButton = uploadForm.querySelector('.img-upload__cancel');
 const uploadFormSubmitButton = uploadForm.querySelector('.img-upload__submit');
+const uploadFormScaleSmaller = uploadForm.querySelector('.scale__control--smaller');
+const uploadFormScaleBigger = uploadForm.querySelector('.scale__control--bigger');
+const uploadFormScaleValue = uploadForm.querySelector('.scale__control--value');
+const uploadFormImagePreview = uploadForm.querySelector('.img-upload__preview');
 
 const MAX_QUANTITY_OF_HASHTAGS = 5;
 const DESCRIPTION_MAX_LENGTH = 140;
@@ -138,3 +142,39 @@ uploadForm.addEventListener('submit', (evt) => {
     uploadForm.submit();
   }
 });
+
+
+// uploadFormScaleSmaller
+// uploadFormScaleBigger
+// uploadFormScaleValue
+// uploadFormImagePreview
+
+const SCALE_STEP = 25;
+const SCALE_MIN = 25;
+const SCALE_MAX = 100;
+
+let uploadFormImageScale = 100;
+uploadFormImagePreview.style.transform = 'scale(1)';
+
+function changeUploadImageScale (currentScale, operation) {
+  if (operation === 'minus' && currentScale > SCALE_MIN) {
+    return currentScale - SCALE_STEP;
+  } else if (operation === 'plus' && currentScale < SCALE_MAX) {
+    return currentScale + SCALE_STEP;
+  } else {
+    return currentScale;
+  }
+}
+
+uploadFormScaleSmaller.addEventListener('click', () => {
+  uploadFormImageScale = changeUploadImageScale(uploadFormImageScale, 'minus');
+  uploadFormImagePreview.style.transform = `scale(${uploadFormImageScale / 100})`;
+  uploadFormScaleValue.value = `${uploadFormImageScale}%`;
+});
+
+uploadFormScaleBigger.addEventListener('click', () => {
+  uploadFormImageScale = changeUploadImageScale(uploadFormImageScale, 'plus');
+  uploadFormImagePreview.style.transform = `scale(${uploadFormImageScale / 100})`;
+  uploadFormScaleValue.value = `${uploadFormImageScale}%`;
+});
+
