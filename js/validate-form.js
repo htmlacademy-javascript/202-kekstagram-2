@@ -92,6 +92,6 @@ const checkValidationForSubmitButton = function () {
   } else {
     uploadFormSubmitButton.disabled = true;
   }
-}
+};
 
 export {pristine, checkValidationForSubmitButton};
