@@ -1,5 +1,6 @@
 import { pristine, checkValidationForSubmitButton } from './validate-form.js';
 import { resetImageEffects } from './image-effects.js';
+import { sendData } from './api.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadInput = uploadForm.querySelector('.img-upload__input');
@@ -44,9 +45,14 @@ uploadFormCloseButton.addEventListener('click', closeUploadForm);
 
 uploadForm.addEventListener('input', checkValidationForSubmitButton);
 
-uploadForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  if (pristine.validate()) {
-    uploadForm.submit();
-  }
-});
+const setUploadFormSubmit = (onSuccess) => {
+  uploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    if (pristine.validate()) {
+      const UploadFormData = new FormData(evt.target);
+      sendData(UploadFormData).then(onSuccess);
+    }
+  });
+};
+
+setUploadFormSubmit(closeUploadForm);
