@@ -1,8 +1,13 @@
-// import { openFullSizeImage } from './open-full-size-image';
+import { addAlertMessage } from './util.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
+const imageDownloadErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
 let usersPicturesData = [];
+
+function showImageDownloadError () {
+  addAlertMessage (imageDownloadErrorTemplate);
+}
 
 const renderThumbnails = (array) => {
   usersPicturesData = array;
@@ -24,4 +29,4 @@ const renderThumbnails = (array) => {
   pictures.append(usersPicturesFragment);
 };
 
-export { renderThumbnails, usersPicturesData};
+export { renderThumbnails, showImageDownloadError, usersPicturesData };

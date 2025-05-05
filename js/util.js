@@ -20,4 +20,48 @@ function createRandomIdFromRangeGenerator (min, max) {
   };
 }
 
-export {createRandomNumberFromRange, createRandomIdFromRangeGenerator};
+function addAlertMessage (template, buttonClass, activeModals) {
+  const ALERT_SHOW_TIME = 5000;
+  const alertMessage = template.cloneNode(true);
+
+  if(activeModals) {
+    activeModals.push(alertMessage);
+  }
+
+  if (buttonClass) {
+    const alertButton = alertMessage.querySelector(`.${buttonClass}`);
+    alertButton.addEventListener('click', closeImageUploadAlert);
+  } else {
+    setTimeout(() => {
+      alertMessage.remove();
+    }, ALERT_SHOW_TIME);
+  }
+
+  const checkKeyPressForAlertMessage = (evt) => {
+    if (evt.key === 'Escape' && activeModals[activeModals.length - 1] === alertMessage) {
+      closeImageUploadAlert();
+    }
+  };
+
+  function closeImageUploadAlert () {
+    alertMessage.remove();
+    document.removeEventListener('keydown', checkKeyPressForAlertMessage);
+
+    const index = activeModals.indexOf(alertMessage);
+    if (index !== -1) {
+      activeModals.splice(index, 1);
+    }
+  }
+
+  function checkClickOutsideOfAlertWindow (evt) {
+    if (evt.target === alertMessage) {
+      closeImageUploadAlert();
+    }
+  }
+
+  document.body.appendChild(alertMessage);
+  alertMessage.addEventListener('click', checkClickOutsideOfAlertWindow);
+  document.addEventListener('keydown', checkKeyPressForAlertMessage);
+}
+
+export { createRandomNumberFromRange, createRandomIdFromRangeGenerator, addAlertMessage };

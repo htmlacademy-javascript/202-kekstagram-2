@@ -1,19 +1,28 @@
-//[ ] Создайте новый модуль и опишите в нём функции взаимодействия c удалённым сервером с помощью fetch для получения и отправки данных. Актуальный адрес сервера вы найдёте в техзадании.
-//[✓] Подключите модуль в проект.
-//[✓] Доработайте модуль для отрисовки фотографий так, чтобы в качестве данных использовались не случайно сгенерированные объекты, а те данные, которые вы загрузите с удалённого сервера.
-//[ ] Добавьте обработку возможных ошибок при загрузке.
+const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
+const Route = {
+  GET_DATA: '/data',
+  SEND_DATA: '/'
+};
 
-const getData = () => fetch ('https://31.javascript.htmlacademy.pro/kekstagram/data')
+const getData = () => fetch (`${BASE_URL}${Route.GET_DATA}`)
   .then((response) => response.json());
 
 const sendData = (body) =>
   fetch (
-    'https://31.javascript.htmlacademy.pro/kekstagram',
+    `${BASE_URL}${Route.SEND_DATA}`,
     {
       method: 'POST',
-      body
+      body: body
     },
   )
-    .then((response) => response.json());
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
+      }
+      return response;
+    })
+    .catch(() => {
+      throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
+    });
 
 export { getData, sendData };
