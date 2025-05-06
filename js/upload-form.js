@@ -13,14 +13,12 @@ const uploadFormSubmitButton = uploadForm.querySelector('.img-upload__submit');
 const imageUploadErrorTemplate = document.querySelector('#error').content.querySelector('.error');
 const imageUploadSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
 
-const activeModals = [];
-
 function showImageUploadError () {
-  addAlertMessage(imageUploadErrorTemplate, 'error__button', activeModals);
+  addAlertMessage(imageUploadErrorTemplate, 'error__button');
 }
 
 function showImageUploadSuccess () {
-  addAlertMessage(imageUploadSuccessTemplate, 'success__button', activeModals);
+  addAlertMessage(imageUploadSuccessTemplate, 'success__button');
 }
 
 const submitButtonText = {
@@ -43,7 +41,7 @@ const checkButtonPressForUploadForm = (evt) => {
     evt.key === 'Escape'
     && evt.target !== uploadFormHashtags
     && evt.target !== uploadFormDescription
-    && activeModals[activeModals.length - 1] === uploadFormOverlay) {
+  ) {
     closeUploadForm();
   }
 };
@@ -59,8 +57,6 @@ function openUploadForm () {
   checkValidationForSubmitButton();
   resetImageEffects();
 
-  activeModals.push(uploadFormOverlay);
-
   uploadFormOverlay.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   document.addEventListener('keydown', checkButtonPressForUploadForm);
@@ -68,11 +64,6 @@ function openUploadForm () {
 
 function closeUploadForm (response) {
   resetUploadFormFields();
-
-  const index = activeModals.indexOf(uploadFormOverlay);
-  if (index !== -1) {
-    activeModals.splice(index, 1);
-  }
 
   uploadFormOverlay.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
@@ -106,5 +97,3 @@ uploadFormCloseButton.addEventListener('click', closeUploadForm);
 uploadForm.addEventListener('input', checkValidationForSubmitButton);
 
 setUploadFormSubmit(closeUploadForm);
-
-export { activeModals };

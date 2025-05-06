@@ -20,13 +20,9 @@ function createRandomIdFromRangeGenerator (min, max) {
   };
 }
 
-function addAlertMessage (template, buttonClass, activeModals) {
+function addAlertMessage (template, buttonClass) {
   const ALERT_SHOW_TIME = 5000;
   const alertMessage = template.cloneNode(true);
-
-  if(activeModals) {
-    activeModals.push(alertMessage);
-  }
 
   if (buttonClass) {
     const alertButton = alertMessage.querySelector(`.${buttonClass}`);
@@ -38,19 +34,15 @@ function addAlertMessage (template, buttonClass, activeModals) {
   }
 
   const checkKeyPressForAlertMessage = (evt) => {
-    if (evt.key === 'Escape' && activeModals[activeModals.length - 1] === alertMessage) {
+    evt.stopPropagation();
+    if (evt.key === 'Escape') {
       closeImageUploadAlert();
     }
   };
 
   function closeImageUploadAlert () {
     alertMessage.remove();
-    document.removeEventListener('keydown', checkKeyPressForAlertMessage);
-
-    const index = activeModals.indexOf(alertMessage);
-    if (index !== -1) {
-      activeModals.splice(index, 1);
-    }
+    document.body.removeEventListener('keydown', checkKeyPressForAlertMessage);
   }
 
   function checkClickOutsideOfAlertWindow (evt) {
@@ -61,7 +53,7 @@ function addAlertMessage (template, buttonClass, activeModals) {
 
   document.body.appendChild(alertMessage);
   alertMessage.addEventListener('click', checkClickOutsideOfAlertWindow);
-  document.addEventListener('keydown', checkKeyPressForAlertMessage);
+  document.body.addEventListener('keydown', checkKeyPressForAlertMessage);
 }
 
 export { createRandomNumberFromRange, createRandomIdFromRangeGenerator, addAlertMessage };
