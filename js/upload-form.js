@@ -74,26 +74,27 @@ function closeUploadForm (response) {
   }
 }
 
-const setUploadFormSubmit = (onSuccess) => {
-  uploadForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    if (pristine.validate()) {
+const sendFormData = async (formElement) => {
+  if (pristine.validate()) {
+    const UploadFormData = new FormData(formElement);
+    try {
       disableSubmitButton();
-      const UploadFormData = new FormData(evt.target);
-      sendData(UploadFormData)
-        .then((response) => {
-          onSuccess(response);
-        })
-        .catch(() => {
-          showImageUploadError();
-        })
-        .finally(enableSubmitButton);
+      const response = await sendData(UploadFormData);
+      closeUploadForm(response);
+    } catch {
+      showImageUploadError();
+    } finally {
+      enableSubmitButton();
     }
-  });
+  }
+};
+
+const onUploadFormSubmit = (evt) => {
+  evt.preventDefault();
+  sendFormData(evt.target);
 };
 
 uploadInput.addEventListener('change', openUploadForm);
 uploadFormCloseButton.addEventListener('click', closeUploadForm);
 uploadForm.addEventListener('input', checkValidationForSubmitButton);
-
-setUploadFormSubmit(closeUploadForm);
+uploadForm.addEventListener('submit', onUploadFormSubmit);
