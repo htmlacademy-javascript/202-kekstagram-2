@@ -1,32 +1,32 @@
-import { createThumbnailsArray } from './create-thumbnails';
-import { openFullSizeImage } from './open-full-size-image';
+import { addAlertMessage } from './util.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
-const usersPicturesData = createThumbnailsArray();
-const usersPicturesFragment = document.createDocumentFragment();
+const imageDownloadErrorTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
+let usersPicturesData = [];
 
-usersPicturesData.forEach((pictureData) => {
-  const {id, url, description, likes, comments} = pictureData;
-  const picture = pictureTemplate.cloneNode(true);
+function showImageDownloadError () {
+  addAlertMessage (imageDownloadErrorTemplate);
+}
 
-  picture.dataset.pictureId = id;
-  picture.querySelector('.picture__img').setAttribute('src', url);
-  picture.querySelector('.picture__img').setAttribute('alt', description);
-  picture.querySelector('.picture__likes').textContent = likes;
-  picture.querySelector('.picture__comments').textContent = comments.length;
+const renderThumbnails = (array) => {
+  usersPicturesData = array;
+  const usersPicturesFragment = document.createDocumentFragment();
 
-  usersPicturesFragment.append(picture);
-});
+  usersPicturesData.forEach((pictureData) => {
+    const {id, url, description, likes, comments} = pictureData;
+    const picture = pictureTemplate.cloneNode(true);
 
-pictures.append(usersPicturesFragment);
+    picture.dataset.pictureId = id;
+    picture.querySelector('.picture__img').setAttribute('src', url);
+    picture.querySelector('.picture__img').setAttribute('alt', description);
+    picture.querySelector('.picture__likes').textContent = likes;
+    picture.querySelector('.picture__comments').textContent = comments.length;
 
-pictures.addEventListener('click', (evt) => {
-  const pictureToOpen = evt.target.closest('.picture');
-  if(pictureToOpen) {
-    evt.preventDefault();
-    openFullSizeImage(pictureToOpen.dataset.pictureId);
-  }
-});
+    usersPicturesFragment.append(picture);
+  });
 
-export { usersPicturesData };
+  pictures.append(usersPicturesFragment);
+};
+
+export { renderThumbnails, showImageDownloadError, usersPicturesData };

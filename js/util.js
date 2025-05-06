@@ -20,4 +20,40 @@ function createRandomIdFromRangeGenerator (min, max) {
   };
 }
 
-export {createRandomNumberFromRange, createRandomIdFromRangeGenerator};
+function addAlertMessage (template, buttonClass) {
+  const ALERT_SHOW_TIME = 5000;
+  const alertMessage = template.cloneNode(true);
+
+  if (buttonClass) {
+    const alertButton = alertMessage.querySelector(`.${buttonClass}`);
+    alertButton.addEventListener('click', closeImageUploadAlert);
+  } else {
+    setTimeout(() => {
+      alertMessage.remove();
+    }, ALERT_SHOW_TIME);
+  }
+
+  const checkKeyPressForAlertMessage = (evt) => {
+    evt.stopPropagation();
+    if (evt.key === 'Escape') {
+      closeImageUploadAlert();
+    }
+  };
+
+  function closeImageUploadAlert () {
+    alertMessage.remove();
+    document.body.removeEventListener('keydown', checkKeyPressForAlertMessage);
+  }
+
+  function checkClickOutsideOfAlertWindow (evt) {
+    if (evt.target === alertMessage) {
+      closeImageUploadAlert();
+    }
+  }
+
+  document.body.appendChild(alertMessage);
+  alertMessage.addEventListener('click', checkClickOutsideOfAlertWindow);
+  document.body.addEventListener('keydown', checkKeyPressForAlertMessage);
+}
+
+export { createRandomNumberFromRange, createRandomIdFromRangeGenerator, addAlertMessage };

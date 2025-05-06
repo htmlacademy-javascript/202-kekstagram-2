@@ -1,6 +1,7 @@
 import { addComments, clearComments } from './add-comments.js';
 import { usersPicturesData } from './add-thumbnails.js';
 
+const pictures = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImage = bigPicture.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPicture.querySelector('.likes-count');
@@ -44,5 +45,10 @@ const openFullSizeImage = function (imageId) {
   openBigPicture();
 };
 
-
-export {openFullSizeImage};
+pictures.addEventListener('click', (evt) => {
+  const pictureToOpen = evt.target.closest('.picture');
+  if(pictureToOpen) {
+    evt.preventDefault();
+    openFullSizeImage(pictureToOpen.dataset.pictureId);
+  }
+});
